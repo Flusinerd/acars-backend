@@ -1,0 +1,23 @@
+[
+  {
+    "type": "A320",
+    "atcTypeCodes": [
+      "FlightFactor A320 ultima"
+    ],
+    "description": "Airbus A320"
+  },
+  {
+    "type": "A20N",
+    "atcTypeCodes": [
+      "TT:ATCCOM.ATC_NAME AIRB"
+    ],
+    "description": "Airbus A320Neo"
+  },
+  {
+    "type": "A359", 
+    "atcTypeCodes": [
+      "AirbusA350 Home"
+    ],
+    "description": "Airbus A350-900"
+  }
+]
