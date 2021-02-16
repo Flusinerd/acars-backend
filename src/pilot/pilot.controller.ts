@@ -30,6 +30,16 @@ export class PilotController {
     return (await this.pilotService.findAll(pagination.take, pagination.skip)).map((pilot) => new PilotWithoutPassword(pilot));
   }
 
+  @Get('test')
+  @ApiOperation({deprecated: true})
+  async test(@Query('ofpid') ofpid: string) {
+    // const res = (await this.httpService.get(`http://www.simbrief.com/ofp/flightplans/xml/${ofpid}.xml`, { responseType: 'text' }).toPromise()).data;
+    // writeFile(join(__dirname, '..', '..', '..', 'ofp.xml'), res, () => {
+    // });
+    const res = await promises.readFile(join(__dirname, '..', '..', '..', 'ofp.xml'));
+    return res.toString();
+  }
+
   @Get(':id')
   async findOne(@Param('id') id: string) {
     return new PilotWithoutPassword(await this.pilotService.findOne(+id));
@@ -55,15 +65,5 @@ export class PilotController {
   @ApiBody({type: LoginRequest})
   async login(@Request() req) {
     return this.pilotService.createToken(req.user);
-  }
-
-  @Get('test')
-  @ApiOperation({deprecated: true})
-  async test(@Query('ofpid') ofpid: string) {
-    // const res = (await this.httpService.get(`http://www.simbrief.com/ofp/flightplans/xml/${ofpid}.xml`, { responseType: 'text' }).toPromise()).data;
-    // writeFile(join(__dirname, '..', '..', '..', 'ofp.xml'), res, () => {
-    // });
-    const res = await promises.readFile(join(__dirname, '..', '..', '..', 'ofp.xml'));
-    return res.toString();
   }
 }
