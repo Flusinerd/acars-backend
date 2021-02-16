@@ -26,6 +26,13 @@ export class PlanesController {
     return this.planesService.findAll(pagination.take, pagination.skip);
   }
 
+  @Get('types/all')
+  @ApiOkResponse()
+  @ApiInternalServerErrorResponse()
+  getCount() {
+    return this.planesService.findAllNoPagination();
+  }
+
   @Get('types/:typeCode')
   @ApiOkResponse({type: PlaneTypeEntity})
   @ApiInternalServerErrorResponse()

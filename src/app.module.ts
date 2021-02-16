@@ -8,6 +8,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { PilotModule } from './pilot/pilot.module';
 import { PlanesModule } from './planes/planes.module';
 import { FinishedFlightsModule } from './finished-flights/finished-flights.module';
+import { SimbriefModule } from './simbrief/simbrief.module';
+import { SchedulesModule } from './schedules/schedules.module';
+import { AuthModule } from './auth/auth.module';
+import { StatsModule } from './stats/stats.module';
+import { BookingsModule } from './bookings/bookings.module';
 
 @Module({
   imports: [
@@ -30,7 +35,12 @@ import { FinishedFlightsModule } from './finished-flights/finished-flights.modul
     AirportsModule,
     PilotModule,
     PlanesModule,
-    FinishedFlightsModule
+    FinishedFlightsModule,
+    SimbriefModule,
+    SchedulesModule,
+    AuthModule,
+    StatsModule,
+    BookingsModule
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -19,5 +19,55 @@
       "AirbusA350 Home"
     ],
     "description": "Airbus A350-900"
+  },
+  {
+    "type": "B738", 
+    "atcTypeCodes": [
+      "Boeing 737"
+    ],
+    "description": "Boeing 737-800"
+  },
+  {
+    "type": "B752", 
+    "atcTypeCodes": [
+      "Boeing 757"
+    ],
+    "description": "Boeing 757-200"
+  },
+  {
+    "type": "B763", 
+    "atcTypeCodes": [
+      "Boeing 767",
+      "Boeing767-Full 767 Lufth"
+    ],
+    "description": "Boeing 767-300"
+  },
+  {
+    "type": "C25C", 
+    "atcTypeCodes": [
+      "Cessna 525C Citation Jet CJ4"
+    ],
+    "description": "Cessna 525C Citation Jet CJ4"
+  },
+  {
+    "type": "A319", 
+    "atcTypeCodes": [
+      "Airbus A319"
+    ],
+    "description": "Airbus A319"
+  },
+  {
+    "type": "B748", 
+    "atcTypeCodes": [
+      "Boeing 747"
+    ],
+    "description": "Boeing 747-800"
+  },
+  {
+    "type": "B77W", 
+    "atcTypeCodes": [
+      "Boeing 777"
+    ],
+    "description": "Boeing 777-300ER"
   }
 ]

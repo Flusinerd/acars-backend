@@ -1,7 +1,8 @@
 import { ApiProperty, PartialType } from "@nestjs/swagger";
 import { PilotEntity } from "./pilot.entity";
+import { IPilotWithoutPass } from './pilot-no-pass.interface';
 
-export class PilotWithoutPassword extends PartialType(PilotEntity) {
+export class PilotWithoutPassword extends PartialType(PilotEntity) implements IPilotWithoutPass {
   @ApiProperty()
   currentLocation: string;
 
@@ -31,7 +32,9 @@ export class PilotWithoutPassword extends PartialType(PilotEntity) {
 
   constructor(pilot: PilotEntity) {
     super();
-    const {password, ...noPass} = pilot;
-    Object.assign(this, noPass);
+    if (pilot) {
+      const {password, ...noPass} = pilot;
+      Object.assign(this, noPass);
+    }
   }
 }

@@ -7,6 +7,7 @@ import { PlanesModule } from 'src/planes/planes.module';
 @Module({
   providers: [TrackingGateway, TrackingService],
   controllers: [TrackingController],
-  imports: [PlanesModule]
+  imports: [PlanesModule],
+  exports: [TrackingService]
 })
 export class TrackingModule {}

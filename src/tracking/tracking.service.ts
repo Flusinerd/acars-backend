@@ -1,4 +1,5 @@
 import { ConflictException, Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { Observable, Subject } from 'rxjs';
 import { PlanesService } from 'src/planes/planes.service';
 import { CreateFlightDto } from './dto/create-flight.dto';
 import { Flight } from './dto/flight.dto';
@@ -14,6 +15,7 @@ export class TrackingService {
   private _logger = new Logger('Tracking Service')
 
   activeFlights: Flight[] = [];
+  flightRemoveEvent = new Subject<string>();
 
   create(flightData: CreateFlightDto): CreateFlightDto {
     if (this.findFlight(flightData.flightNumber)) {
@@ -33,6 +35,7 @@ export class TrackingService {
 
   remove(flightNo: string) {
     this.activeFlights = this.activeFlights.filter((candidate) => !(candidate.flightNumber === flightNo));
+    this.flightRemoveEvent.next(flightNo);
   }
 
   onTrackingData(trackingData: IPositionReport): IPositionReport {

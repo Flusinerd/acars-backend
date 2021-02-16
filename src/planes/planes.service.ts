@@ -39,6 +39,10 @@ export class PlanesService {
     return this.planeRepo.find({take, skip});
   }
 
+  findAllNoPagination() {
+    return this.planeRepo.find();
+  }
+
   findOne(typeCode: string) {
     return this.planeRepo.findOne(typeCode);
   }
@@ -63,9 +67,17 @@ export class PlanesService {
   private async getMissingPlanes(): Promise<JsonPlane[]> {
     const missingPlanes: JsonPlane[] = [];
     for (const plane of jsonPlanes) {
-      const exists = await this.findOne(plane.type)
-      if (!exists) {
+      const entry = await this.planeRepo.findOne({where: {typeCode: plane.type}})
+      if (!entry) {
         missingPlanes.push(plane);
+        break;
+      }
+      const typeCodes = entry.atcTypeCodes.map((code) => code.atcTypeCode);
+      for (const typeCode of plane.atcTypeCodes) {
+        if (!typeCodes.includes(typeCode)){
+          missingPlanes.push(plane);
+          break;
+        }
       }
     }
     return missingPlanes;
@@ -74,11 +86,15 @@ export class PlanesService {
   private async checkJson() {
     const missingPlanes = await this.getMissingPlanes();
     for (const missingPlane of missingPlanes) {
-      await this.create({
+      const existing = await this.findOne(missingPlane.type);
+      if (existing) {
+        missingPlane.atcTypeCodes = missingPlane.atcTypeCodes.concat(existing.atcTypeCodes.map((code) => code.atcTypeCode));
+      }
+      await this.planeRepo.save({
         atcTypeCodes: missingPlane.atcTypeCodes.map((code) => {return {atcTypeCode: code}}),
         description: missingPlane.description,
         typeCode: missingPlane.type
-      })
+      },)
       this.logger.log(`Created Plane entry for: ${missingPlane.description} (${missingPlane.type})`);
     }
   }

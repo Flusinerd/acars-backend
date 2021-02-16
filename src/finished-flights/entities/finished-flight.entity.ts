@@ -1,7 +1,6 @@
 import { PilotEntity } from "src/pilot/dto/pilot.entity";
-import { Pilot } from "src/pilot/entities/pilot.entity";
 import { PlaneTypeEntity } from "src/planes/dto/plane.entity";
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, BeforeUpdate, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity({ name: 'finishedFlights' })
 export class FinishedFlight {
@@ -26,6 +25,30 @@ export class FinishedFlight {
   @Column()
   cargo: number;
 
+  @Column()
+  route: string;
+
+  @Column()
+  planeName: string;
+
+  @Column({ type: 'timestamp' })
+  depatureTime: Date;
+
+  @Column({ type: 'timestamp' })
+  arrivalTime: Date;
+
+  @Column({ type: 'timestamp' })
+  pirepTime: Date;
+
+  @Column()
+  landingRate: number;
+
+  @Column()
+  comment: string;
+
+  @Column()
+  pilotPay: number;
+
   @ManyToOne(() => PilotEntity)
   @JoinColumn({name: 'pilotId'})
   pilot: PilotEntity;
@@ -39,4 +62,11 @@ export class FinishedFlight {
 
   @Column()
   planeTypeCode: string;
+
+  @BeforeInsert()
+  @BeforeUpdate()
+  icaoToUpperCase() {
+    this.arrivalIcao = this.arrivalIcao.toUpperCase();
+    this.depatureIcao = this.depatureIcao.toUpperCase();
+  }
 }
